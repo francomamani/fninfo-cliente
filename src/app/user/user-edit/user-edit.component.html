@@ -1,0 +1,28 @@
+<mat-card class="card-md" *ngIf="user !== null">
+  <mat-card-content>
+    <form (submit)="update()" [formGroup]="userGroup">
+      <legend>EDITAR USUARIO</legend>
+      <mat-form-field class="divider">
+        <input matInput formControlName="cuenta" placeholder="Cuenta" #cuenta maxlength="20">
+        <mat-hint align="end">{{cuenta.value?.length || 0}}/20</mat-hint>
+        <mat-error *ngIf="userGroup.get('cuenta').status == 'INVALID'">La cuenta es obligatoria</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput formControlName="nombres" placeholder="Nombres" #nombres maxlength="150">
+        <mat-hint align="end">{{nombres.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="userGroup.get('nombres').status == 'INVALID'">El nombre es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput formControlName="apellidos" placeholder="Apellidos" #apellidos maxlength="150">
+        <mat-hint align="end">{{apellidos.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="userGroup.get('apellidos').status == 'INVALID'">El apellido es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput formControlName="carnet" placeholder="Carnet" #carnet maxlength="10">
+        <mat-hint align="end">{{carnet.value?.length || 0}}/10</mat-hint>
+        <mat-error *ngIf="userGroup.get('carnet').status == 'INVALID'">El carnet es obligatorio</mat-error>
+      </mat-form-field>
+      <button mat-raised-button type="submit" color="primary" [disabled]="userGroup.status == 'INVALID'">ACTUALIZAR</button>
+    </form>
+  </mat-card-content>
+</mat-card>

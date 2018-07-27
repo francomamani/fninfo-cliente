@@ -1,0 +1,18 @@
+<mat-card class="card-md">
+  <mat-card-content>
+    <form (submit)="store()" [formGroup]="tramiteGroup">
+      <legend>CREAR TRAMITE</legend>
+      <mat-form-field class="divider">
+        <input matInput formControlName="titulo" placeholder="Titulo" #titulo maxlength="50">
+        <mat-hint align="end">{{titulo.value?.length || 0}}/50</mat-hint>
+        <mat-error *ngIf="tramiteGroup.get('titulo').status == 'INVALID'">El titulo es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <textarea matInput formControlName="descripcion" placeholder="Descripcion" #descripcion maxlength="150"></textarea>
+        <mat-hint align="end">{{descripcion.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="tramiteGroup.get('descripcion').status == 'INVALID'">La descripcion es obligatoria</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" [disabled]="tramiteGroup.status === 'INVALID'">GUARDAR</button>
+    </form>
+  </mat-card-content>
+</mat-card>

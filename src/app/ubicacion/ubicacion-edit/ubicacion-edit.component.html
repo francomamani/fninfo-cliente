@@ -1,0 +1,34 @@
+<div class="map" id="map">
+  <div class="popup" id="popup">{{ ubicacion.nombre }}}</div>
+</div>
+
+<mat-card class="card-md-right" *ngIf="ubicacion !== null">
+  <mat-card-content>
+    <form (submit)="update()" [formGroup]="ubicacionGroup">
+      <legend>EDITAR UBICACION</legend>
+      <mat-form-field class="divider">
+        <input matInput formControlName="nombre" placeholder="Nombre"  [(ngModel)]="ubicacion.nombre" #nombre maxlength="50">
+        <mat-hint align="end">{{nombre.value?.length || 0}}/50</mat-hint>
+        <mat-error *ngIf="ubicacionGroup.get('nombre').status == 'INVALID'">El nombre es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <textarea matInput formControlName="descripcion" placeholder="Descripcion" #descripcion maxlength="150"></textarea>
+        <mat-hint align="end">{{descripcion.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="ubicacionGroup.get('descripcion').status == 'INVALID'">La descripcion es obligatoria</mat-error>
+      </mat-form-field>
+      <mat-form-field class="half">
+        <input matInput formControlName="lat" placeholder="Latitud" type="number" step="0.0000000001" [(ngModel)]="ubicacion.lat" name="lat">
+        <mat-error *ngIf="ubicacionGroup.get('lat').status == 'INVALID'">La latitud es obligatoria</mat-error>
+      </mat-form-field>
+      <mat-form-field class="half">
+        <input matInput formControlName="lng" placeholder="Longitud" type="number" step="0.0000000001" [(ngModel)]="ubicacion.lng" name="lng">
+        <mat-error *ngIf="ubicacionGroup.get('lng').status == 'INVALID'">La longitud es obligatoria</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput formControlName="planta" placeholder="N. Planta" type="number">
+        <mat-error *ngIf="ubicacionGroup.get('planta').status == 'INVALID'">El N. Planta es obligatorio</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="ubicacionGroup.status == 'INVALID'">ACTUALIZAR</button>
+    </form>
+  </mat-card-content>
+</mat-card>

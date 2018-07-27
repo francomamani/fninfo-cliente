@@ -1,0 +1,6 @@
+<p>{{ mensaje.info }}</p>
+<br>
+<div class="text-right">
+  <button mat-button (click)="cancel()" *ngIf="mensaje.has_action">No</button>
+  <button mat-button (click)="close()">Esta bien</button>
+</div>

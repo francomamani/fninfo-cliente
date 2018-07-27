@@ -1,0 +1,13 @@
+<mat-card class="card-md" *ngIf="imagen !== null">
+  <mat-card-content>
+    <form (submit)="update()" [formGroup]="imagenGroup">
+      <legend>EDITAR IMAGEN DE UBICACION</legend>
+      <mat-form-field class="divider">
+        <textarea matInput formControlName="descripcion" placeholder="Descripcion" #descripcion maxlength="150"></textarea>
+        <mat-hint align="end">{{descripcion.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="imagenGroup.get('descripcion').status == 'INVALID'">La descripcion es obligatoria</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" [disabled]="imagenGroup.status == 'INVALID'">ACTUALIZAR</button>
+    </form>
+  </mat-card-content>
+</mat-card>

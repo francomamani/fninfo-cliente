@@ -1,0 +1,88 @@
+<mat-toolbar color="primary" class="toolbar">
+    <mat-toolbar-row>
+        <span>FNI INFO</span>
+        <span class="spacer"></span>
+        <button mat-icon-button routerLink="/inicio" *ngIf="!authService.isAuthenticated()">
+            <span matTooltip="Inicio" class="tooltip"><mat-icon>home</mat-icon></span>
+        </button>
+
+        <button mat-icon-button routerLink="/login" *ngIf="!authService.isAuthenticated()">
+            <span matTooltip="Autenticacion" class="tooltip"><mat-icon>person_pin</mat-icon></span>
+        </button>
+        <button mat-icon-button routerLink="/slider" *ngIf="authService.isAuthenticated()">
+            <span matTooltip="Sliders" class="tooltip"><mat-icon>photo_camera</mat-icon></span>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="notificaciones" *ngIf="authService.isAuthenticated()">
+            <span matTooltip="Notificaciones" class="tooltip">
+                <mat-icon>textsms</mat-icon>
+            </span>
+        </button>
+        <mat-menu #notificaciones="matMenu">
+            <button mat-menu-item routerLink="/categoria">
+                <mat-icon>dashboard</mat-icon>
+                <span>CATEGORIAS</span>
+            </button>
+            <button mat-menu-item routerLink="/notificacion">
+                <mat-icon>textsms</mat-icon>
+                <span>NOTIFICACIONES</span>
+            </button>
+        </mat-menu>
+        <button mat-icon-button routerLink="/emergente" *ngIf="authService.isAuthenticated()">
+            <span matTooltip="Mensajes Emergentes" class="tooltip"><mat-icon>send</mat-icon></span>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="ubicaciones"
+                *ngIf="authService.isAuthenticated()">
+            <span matTooltip="Ubicaciones" class="tooltip"><mat-icon>location_on</mat-icon></span>
+        </button>
+        <mat-menu #ubicaciones="matMenu">
+            <button mat-menu-item routerLink="/categoria-ubicacion">
+                <mat-icon>dashboard</mat-icon>
+                <span>CATEGORIAS</span>
+            </button>
+            <button mat-menu-item routerLink="/ubicacion">
+                <mat-icon>location_on</mat-icon>
+                <span>UBICACIONES</span>
+            </button>
+        </mat-menu>
+
+        <button mat-icon-button routerLink="/tramite" *ngIf="authService.isAuthenticated()">
+            <span matTooltip="Tramites" class="tooltip"><mat-icon>folder</mat-icon></span>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="usuarios"
+                *ngIf="authService.isAuthenticated()">
+            <span matTooltip="Usuarios" class="tooltip"><mat-icon>account_circle</mat-icon></span>
+        </button>
+        <mat-menu #usuarios="matMenu">
+            <button mat-menu-item routerLink="/usuario">
+                <mat-icon>dashboard</mat-icon>
+                <span>USUARIOS</span>
+            </button>
+            <button mat-menu-item routerLink="/usuario/cambiar-password">
+                <mat-icon>lock</mat-icon>
+                <span>CAMBIAR PASSWORD</span>
+            </button>
+            <button mat-menu-item routerLink="/usuario/perfil">
+                <mat-icon>account_circle</mat-icon>
+                <span>PERFIL</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>notifications_off</mat-icon>
+                <span>CERRAR SESION</span>
+            </button>
+        </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>
+
+
+
+
+
+
+
+
+
+
+
+
+

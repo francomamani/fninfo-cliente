@@ -1,0 +1,26 @@
+<mat-card class="card-md">
+  <mat-card-content>
+    <form (submit)="store()" [formGroup]="categoriaUbicacionGroup">
+      <legend>CREAR CATEGORIA DE UBICACIONES</legend>
+      <mat-form-field class="divider">
+        <input matInput formControlName="nombre" placeholder="Nombre" #nombre maxlength="50">
+        <mat-hint align="end">{{nombre.value?.length || 0}}/50</mat-hint>
+        <mat-error *ngIf="categoriaUbicacionGroup.get('nombre').status == 'INVALID'">El nombre es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <textarea matInput formControlName="descripcion" placeholder="Descripcion" #descripcion maxlength="150"></textarea>
+        <mat-hint align="end">{{descripcion.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="categoriaUbicacionGroup.get('descripcion').status == 'INVALID'">La descripcion es obligatoria</mat-error>
+      </mat-form-field>
+      <div class="divider">
+        <input type="file" ngModel #icono formControlName="icono" name="icono" placeholder="Subir Icono">
+      </div>
+      <mat-form-field class="divider">
+        <input matInput [(colorPicker)]="color" placeholder="Elija un color" formControlName="color" ngModel name="color" [style.background]="color" [value]="color"/>
+        <!--<input matInput formControlName="color" name="color" placeholder="Color">-->
+        <mat-hint align="end">Elija un color</mat-hint>
+      </mat-form-field>
+      <button mat-raised-button color="primary">GUARDAR</button>
+    </form>
+  </mat-card-content>
+</mat-card>

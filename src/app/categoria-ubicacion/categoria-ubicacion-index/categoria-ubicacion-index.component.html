@@ -1,0 +1,40 @@
+<div class="fni-container mat-elevation-z8">
+  <div class="fni-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar...">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="categoria_ubicaciones" matSort>
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+      <mat-cell *matCellDef="let col"> {{ col.nombre }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>
+      <mat-cell *matCellDef="let col"> {{ col.descripcion }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="icono">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Icono </mat-header-cell>
+      <mat-cell *matCellDef="let col"><img class="icono"
+                                           src="{{environment.base}}{{environment.categoriaUbicacionIcono}}{{col.id}}"
+                                           [style.background]="col.color"></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </mat-header-cell>
+      <mat-cell *matCellDef="let col; let i = index">
+        <button mat-icon-button mat-button color="warn" routerLink="/categoria-ubicacion/editar/{{col.id}}"><mat-icon>border_color</mat-icon></button>
+        <button mat-icon-button mat-button color="accent" (click)="openDialog(col.id, i)"><mat-icon>delete</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+</div>

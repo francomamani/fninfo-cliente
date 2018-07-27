@@ -1,0 +1,54 @@
+<section class="header-main" [ngStyle]="{'background-color': 'black'}">
+  TRAMITE: {{ tramite.titulo | uppercase }}
+</section>
+
+<div class="fni-container mat-elevation-z8">
+  <div class="fni-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar pasos de tramite...">
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="pasos" matSort>
+    <ng-container matColumnDef="titulo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Titulo </mat-header-cell>
+      <mat-cell *matCellDef="let col"> {{col.posicion}}.  {{col.titulo}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="descripcion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+      <mat-cell *matCellDef="let col"> {{ col.descripcion }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </mat-header-cell>
+      <mat-cell *matCellDef="let col; let i = index">
+        <a mat-icon-button mat-button color="primary" *ngIf="col.url !== null" [href]="col.url"
+           matTooltip="Enlace"
+           target="_blank" ><mat-icon> link </mat-icon>
+        </a>
+        <button mat-icon-button
+                mat-button
+                color="warn"
+                *ngIf="col.ubicacion_id !== 0"
+                routerLink="/inicio/mapa/{{col.ubicacion_id}}"
+                matTooltip="Ubicacion"><mat-icon> location_on </mat-icon>
+        </button>
+        <a mat-icon-button
+                mat-button
+                color="accent"
+                *ngIf="col.documento"
+                href="{{environment.base}}{{environment.pasoDocumento}}{{col.id}}"
+                target="_blank"
+                matTooltip="Documento adjunto"><mat-icon> save_alt </mat-icon>
+        </a>
+
+<!--        <button mat-icon-button mat-button color="accent" routerLink="/tramite/{{col.tramite_id}}/paso/editar/{{col.id}}"><mat-icon>border_color</mat-icon></button>
+        <button mat-icon-button mat-button color="warn" (click)="openDialog(col.id, i)"><mat-icon>delete</mat-icon></button>-->
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+</div>

@@ -1,0 +1,36 @@
+<mat-card class="card-md">
+  <mat-card-content>
+    <form (submit)="store()" [formGroup]="userGroup">
+      <legend>CREAR USUARIO</legend>
+      <mat-form-field class="divider">
+        <input matInput formControlName="nombres" placeholder="Nombres" #nombres maxlength="150">
+        <mat-hint align="end">{{nombres.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="userGroup.get('nombres').status == 'INVALID'">El nombre es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput formControlName="apellidos" placeholder="Apellidos" #apellidos maxlength="150">
+        <mat-hint align="end">{{apellidos.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="userGroup.get('apellidos').status == 'INVALID'">El apellido es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput formControlName="carnet" placeholder="Carnet" #carnet maxlength="10">
+        <mat-hint align="end">{{carnet.value?.length || 0}}/10</mat-hint>
+        <mat-error *ngIf="userGroup.get('carnet').status == 'INVALID'">El carnet es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput formControlName="cuenta" placeholder="Cuenta" #cuenta maxlength="20">
+        <mat-hint align="end">{{cuenta.value?.length || 0}}/20</mat-hint>
+        <mat-error *ngIf="userGroup.get('cuenta').status == 'INVALID'">La cuenta es obligatoria</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput formControlName="password" placeholder="Password" #password maxlength="20" [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-hint align="end">{{password.value?.length || 0}}/20</mat-hint>
+        <mat-error *ngIf="userGroup.get('password').status == 'INVALID'">El password es obligatorio, longitud minima 8 caracteres
+          y debe contener al menos 1 mayuscula, 1 minuscula, 1 numero y uno de los caracteres ! @ # $ % ^ & *</mat-error>
+
+      </mat-form-field>
+      <button mat-raised-button type="submit" color="primary" [disabled]="userGroup.status == 'INVALID'">GUARDAR</button>
+    </form>
+  </mat-card-content>
+</mat-card>

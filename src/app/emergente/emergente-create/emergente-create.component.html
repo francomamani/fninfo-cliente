@@ -1,0 +1,32 @@
+<mat-card class="card-md">
+  <mat-card-content>
+    <form (submit)="store()" [formGroup]="emergenteGroup">
+      <legend>CREAR NOTIFICACION EMERGENTE</legend>
+      <mat-form-field class="divider">
+        <label class="mat-label">Notificacion</label>
+        <mat-select name="notificacion_id" formControlName="notificacion_id">
+          <mat-option *ngFor="let notificacion of notificaciones"
+                      [value]="notificacion.id">{{ notificacion.titulo }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput formControlName="titulo" placeholder="Titulo" #titulo maxlength="50">
+        <mat-hint align="end">{{titulo.value?.length || 0}}/50</mat-hint>
+        <mat-error *ngIf="emergenteGroup.get('titulo').status == 'INVALID'">El titulo es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <textarea matInput formControlName="descripcion" placeholder="Descripcion" #descripcion maxlength="150"></textarea>
+        <mat-hint align="end">{{descripcion.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="emergenteGroup.get('descripcion').status == 'INVALID'">La descripcion es obligatoria</mat-error>
+      </mat-form-field>
+      <mat-radio-group formControlName="imagen" class="radio-group">
+        <mat-radio-button *ngFor="let imagen of imagenes" [value]="imagen.key">
+          {{ imagen.value }}
+        </mat-radio-button>
+      </mat-radio-group>
+      <div class="divider">
+        <button mat-raised-button color="primary">GUARDAR</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

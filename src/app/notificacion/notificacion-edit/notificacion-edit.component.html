@@ -1,0 +1,36 @@
+<mat-card class="card-md" *ngIf="notificacion !== null">
+  <mat-card-content>
+    <form (submit)="update()" [formGroup]="notificacionGroup">
+      <legend>EDITAR NOTIFICACION</legend>
+      <mat-form-field class="divider">
+        <input matInput type="number" formControlName="prioridad" placeholder="Prioridad" min="0" max="10" #prioridad>
+        <mat-error *ngIf="notificacionGroup.get('prioridad').status == 'INVALID'">La prioridad es obligatoria</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput formControlName="titulo" placeholder="Titulo" #titulo maxlength="50">
+        <mat-hint align="end">{{titulo.value?.length || 0}}/50</mat-hint>
+        <mat-error *ngIf="notificacionGroup.get('titulo').status == 'INVALID'">El titulo es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <textarea matInput formControlName="contenido" placeholder="Contenido" #contenido maxlength="150"></textarea>
+        <mat-hint align="end">{{contenido.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="notificacionGroup.get('contenido').status == 'INVALID'">La contenido es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="half-divider">
+        <input matInput [matDatepicker]="fecha_inicio" formControlName="fecha_inicio" placeholder="Fecha de inicio">
+        <mat-datepicker-toggle matSuffix [for]="fecha_inicio"></mat-datepicker-toggle>
+        <mat-datepicker #fecha_inicio></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="half-divider">
+        <input matInput [matDatepicker]="fecha_fin" formControlName="fecha_fin" placeholder="Fecha de fin">
+        <mat-datepicker-toggle matSuffix [for]="fecha_fin"></mat-datepicker-toggle>
+        <mat-datepicker #fecha_fin></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput formControlName="web" placeholder="Documento en linea" #web maxlength="150">
+        <mat-hint align="end">{{web.value?.length || 0}}/150</mat-hint>
+      </mat-form-field>
+      <button mat-raised-button color="primary">ACTUALIZAR</button>
+    </form>
+  </mat-card-content>
+</mat-card>

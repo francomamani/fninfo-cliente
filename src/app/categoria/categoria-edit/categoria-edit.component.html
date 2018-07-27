@@ -1,0 +1,22 @@
+<mat-card class="card-md" *ngIf="categoria !== null">
+  <mat-card-content>
+    <form (submit)="update()" [formGroup]="categoriaGroup">
+      <legend>EDITAR CATEGORIA</legend>
+      <mat-form-field class="divider">
+        <input matInput formControlName="nombre" placeholder="Nombre" #nombre maxlength="50">
+        <mat-hint align="end">{{nombre.value?.length || 0}}/50</mat-hint>
+        <mat-error *ngIf="categoriaGroup.get('nombre').status == 'INVALID'">El nombre es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <textarea matInput formControlName="descripcion" placeholder="Descripcion" #descripcion maxlength="150"></textarea>
+        <mat-hint align="end">{{descripcion.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="categoriaGroup.get('descripcion').status == 'INVALID'">La descripcion es obligatoria</mat-error>
+      </mat-form-field>
+      <mat-form-field class="divider">
+        <input matInput [(colorPicker)]="color" placeholder="Elija un color" formControlName="color" ngModel name="color" [style.background]="color" [value]="color"/>
+        <mat-hint align="end">Elija un color</mat-hint>
+      </mat-form-field>
+      <button mat-raised-button color="primary">ACTUALIZAR</button>
+    </form>
+  </mat-card-content>
+</mat-card>

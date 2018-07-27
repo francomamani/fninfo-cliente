@@ -1,0 +1,43 @@
+<div class="fni-container mat-elevation-z8">
+  <div class="fni-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar...">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="users" matSort>
+    <ng-container matColumnDef="cuenta">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Cuenta </mat-header-cell>
+      <mat-cell *matCellDef="let col"> {{col.cuenta}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="carnet">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Carnet </mat-header-cell>
+      <mat-cell *matCellDef="let col"> {{col.carnet}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="nombres">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
+      <mat-cell *matCellDef="let col"> {{col.nombres | uppercase }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="apellidos">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
+      <mat-cell *matCellDef="let col"> {{col.apellidos | uppercase }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </mat-header-cell>
+      <mat-cell *matCellDef="let col; let i = index">
+        <div *ngIf="col.cuenta !== 'root'">
+          <button mat-icon-button mat-button color="warn" routerLink="/usuario/editar/{{col.id}}"><mat-icon>border_color</mat-icon></button>
+          <button mat-icon-button mat-button color="accent" (click)="openDialog(col.id, i)"><mat-icon>delete</mat-icon></button>
+          <button mat-icon-button mat-button color="primary" (click)="resetDialog(col.id)"><mat-icon>lock</mat-icon></button>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+</div>

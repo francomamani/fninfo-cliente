@@ -1,0 +1,68 @@
+<div class="fni-container mat-elevation-z8">
+  <div class="fni-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar ubicaciones...">
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="ubicaciones" matSort>
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+      <mat-cell *matCellDef="let col" [ngStyle]="{'text-align': 'left'}"> {{ col.nombre }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+      <mat-cell *matCellDef="let col" [ngStyle]="{'text-align': 'left'}"> {{col.descripcion}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="planta">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Planta </mat-header-cell>
+      <mat-cell *matCellDef="let col"> {{col.planta}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </mat-header-cell>
+      <mat-cell *matCellDef="let col; let i = index">
+        <button mat-icon-button mat-button color="warn" routerLink="/ubicacion/editar/{{col.id}}">
+            <span matTooltip="Editar ubicacion" class="tooltip"><mat-icon>border_color</mat-icon></span>
+        </button>
+        <button mat-icon-button mat-button color="accent" (click)="openDialog(col.id, i)">
+            <span matTooltip="Eliminar ubicacion" class="tooltip"><mat-icon>delete</mat-icon></span>
+        </button>
+        <button mat-icon-button mat-button color="primary" routerLink="/ubicacion/{{col.id}}/imagen/crear">
+            <span matTooltip="Agregar a galeria" class="tooltip"><mat-icon>image</mat-icon></span>
+        </button>
+        <button mat-icon-button mat-button color="default" routerLink="/ubicacion/{{col.id}}/imagen">
+            <span matTooltip="Listar galeria" class="tooltip"><mat-icon>format_list_numbered</mat-icon></span>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="imagen">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Imagen </mat-header-cell>
+      <mat-cell *matCellDef="let col"><img class="imagen"
+                                           src="{{environment.base}}{{environment.ubicacionImagen}}{{col.id}}"
+                                           [style.background]="col.color"></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="mapa">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Ubicacion en Mapa</mat-header-cell>
+      <mat-cell *matCellDef="let col" >
+        <button mat-icon-button
+                (click)="showMap(col.id)">
+            <span matTooltip="Ver ubicacion en mapa" class="tooltip">
+                <img class="icono"
+                         src="{{environment.base}}{{environment.categoriaUbicacionIcono}}{{col.categoria_ubicacion_id}}"
+                         [ngStyle]="{ 'background-color': col.categoria_ubicacion.color }" >
+            </span>
+
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns" [ngStyle]="{'text-align': 'center'}"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="{'text-align': 'center'}"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+</div>

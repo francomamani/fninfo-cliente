@@ -1,0 +1,16 @@
+<mat-card class="card-md">
+  <mat-card-content>
+    <form (submit)="store()" [formGroup]="imagenNotificacionGroup">
+      <legend>CREAR IMAGEN DE NOTIFICACION</legend>
+      <div class="divider">
+        <input type="file" ngModel #imagen formControlName="imagen" name="imagen" placeholder="Subir Imagen">
+      </div>
+      <mat-form-field class="divider">
+        <textarea matInput formControlName="descripcion" placeholder="Descripcion" #descripcion maxlength="150"></textarea>
+        <mat-hint align="end">{{descripcion.value?.length || 0}}/150</mat-hint>
+        <mat-error *ngIf="imagenNotificacionGroup.get('descripcion').status == 'INVALID'">La descripción es obligatoria</mat-error>
+      </mat-form-field>
+      <button mat-raised-button type="submit" color="primary" [disabled]="imagenNotificacionGroup.get('descripcion').status == 'INVALID'">GUARDAR</button>
+    </form>
+  </mat-card-content>
+</mat-card>

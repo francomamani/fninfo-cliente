@@ -1,0 +1,10 @@
+<section class="header-main" [ngStyle]="{'background-color': 'black'}" *ngIf="categoriaUbicacion === null">TODO</section>
+<section class="header-main"
+       *ngIf="categoriaUbicacion !== null"
+       [ngStyle]="{'background-color':categoriaUbicacion.color}">
+        <img class="icono-main"
+             src="{{environment.base}}{{environment.categoriaUbicacionIcono}}{{categoria_id}}"
+             [ngStyle]="{ 'background-color': categoriaUbicacion.color }" >
+        {{ categoriaUbicacion.nombre | uppercase }}
+</section>
+<div class="map" id="map"></div>

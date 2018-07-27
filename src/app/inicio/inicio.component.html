@@ -1,0 +1,35 @@
+<section class="container">
+  <aside class="sidebar">
+    <!--
+    <a routerLink="tramites" [ngStyle]="{'background-color': 'gray'}">
+      <mat-icon class="icono-main">book</mat-icon> TRAMITES
+    </a>
+    -->
+    <a routerLink="tramites" [ngStyle]="{'background-color': '#3F51B5'}" class="options-main">TRAMITES</a>
+    <a routerLink="ubicaciones" [ngStyle]="{'background-color': 'black'}" class="options-main">TODO</a>
+    <a *ngFor="let categoria of categoriaUbicaciones"
+       routerLink="ubicaciones/{{categoria.id}}"
+       class="options-main"
+       [ngStyle]="{'background-color':categoria.color}">
+      <img class="icono-main"
+           src="{{environment.base}}{{environment.categoriaUbicacionIcono}}{{categoria.id}}"
+           [ngStyle]="{ 'background-color': categoria.color }" >
+      {{ categoria.nombre | uppercase }}
+    </a>
+<!--    <a routerLink="crear" color="primary">Crear</a>
+    <a routerLink="listar" color="primary">Listar</a>-->
+
+    <!--    <section class="dashboard">
+          <section *ngFor="let categoria of categorias" [style.background]="categoria.color">
+            <img class="dashboard-icon"
+                 [style.background]="categoria.color"
+                 src="{{environment.base}}{{environment.categoriaUbicacionIcono}}{{categoria.id}}"
+                 routerLink="/ubicacion/listar/{{categoria.id}}">
+            <span class="dashboard-title">{{ categoria.nombre }}</span>
+          </section>
+        </section>-->
+  </aside>
+  <section class="content">
+    <router-outlet></router-outlet>
+  </section>
+</section>
